@@ -1,0 +1,46 @@
+it is not a best practice to manage eks as root user, hence install eks on users, there is need to install kubelet and aws on a server and user it to manage our cluster
+
+1}curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+
+2}chmod +x ./kubectl
+
+3}sudo mv ./kubectl /usr/local/bin/kubectl
+INSTALL AWS 
+----------------
+4}sudo yum install unzip -y
+
+5}curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
+
+6}{aws eks update-kubeconfig --name eks30 --region us-west-1
+VERIFY AWS BY RUNNING aws s3 ls
+
+7}sudo yum install git -y
+
+
+
+8) Get Kube-config file
+
+   aws eks update-kubeconfig --name <EKSClusteName> --region <regionName>
+   aws eks update-kubeconfig --name eks30 --region us-west-1 
+9}   kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.12"
+
+
+10) try to access the cluster resources using kubectl
+
+aws sts get-caller-identity
+
+
+NEXT IS TO INSTALL HELM
+-----------------------
+Run this command
+
+11} curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+chmod 700 get_helm.sh
+ ./get_helm.sh
+ 
+ 12} sudo yum install tree -y. to ba able to view your chart in tree format
+ 13} begin to run your commands with helm create e.g helm create myapp
